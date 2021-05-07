@@ -1,0 +1,42 @@
+on:
+  push:
+    tags:    
+      - *
+
+jobs:
+  vagrant-up:
+    runs-on: macos-10.15
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Cache Vagrant boxes
+        uses: actions/cache@v2
+        with:
+          path: ~/.vagrant.d/boxes
+          key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
+          restore-keys: |
+            ${{ runner.os }}-vagrant-
+
+      - name: apply patches
+        run: ./patches/protonprep.sh
+
+      - name: Show Vagrant version
+        run: vagrant --version
+
+      - name: Run vagrant up
+        run: yes Y | vagrant up
+
+      - name: Run vagrant up
+        run: vagrant up
+
+      - name: Build proton
+        run: build_name=some_custom_build_name make redist
+      - name: Upload binaries to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GH_PAT }}
+          file: proton-ge-custom/vagrant_share/*
+          tag: ${{ github.ref }}
+          overwrite: false
