@@ -23,8 +23,7 @@ jobs:
         run: vagrant --version
       
       - name: Setup vbox additions
-        run: vagrant plugin install vagrant-vbguest && vagrant vbguest
-
+        run: vagrant plugin install vagrant-vbguest
       - name: apply patches
         run: ./patches/protonprep.sh
 
