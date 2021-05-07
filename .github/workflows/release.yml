@@ -4,7 +4,7 @@ on:
       - "*"
 
 jobs:
-  vagrant-up:
+  build-proton-ge:
     runs-on: macos-10.15
     env:
       VAGRANT_CHECKPOINT_DISABLE: yes
