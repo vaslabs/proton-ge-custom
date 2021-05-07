@@ -18,12 +18,16 @@ jobs:
           key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
           restore-keys: |
             ${{ runner.os }}-vagrant-
+      
+      - name: Show Vagrant version
+        run: vagrant --version
+      
+      - name: Setup vbox additions
+        run: cd /opt/VBoxGuestAdditions-*/init & sudo ./vboxadd setup
 
       - name: apply patches
         run: ./patches/protonprep.sh
 
-      - name: Show Vagrant version
-        run: vagrant --version
 
       - name: Run vagrant up
         run: yes Y | vagrant up
