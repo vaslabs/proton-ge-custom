@@ -36,11 +36,11 @@ jobs:
         run: vagrant up --no-tty --debug
 
       - name: Build proton
-        run: build_name=some_custom_build_name make redist
+        run: build_name=Proton-GE-${{ github.ref }} make redist
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GH_PAT }}
-          file: proton-ge-custom/vagrant_share/*
+          file: vagrant_share/*
           tag: ${{ github.ref }}
           overwrite: false
