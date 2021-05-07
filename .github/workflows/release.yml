@@ -30,10 +30,9 @@ jobs:
         run: ./patches/protonprep.sh
 
       - name: Run vagrant up
-        run: vagrant up --no-tty --debug
-
+        run: vagrant up --no-tty
       - name: Run vagrant up
-        run: vagrant up --no-tty --debug
+        run: vagrant up --no-tty
 
       - name: Build proton
         run: build_name=Proton-GE-${{ github.ref }} make redist
