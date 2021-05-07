@@ -29,10 +29,10 @@ jobs:
 
 
       - name: Run vagrant up
-        run: yes Y | vagrant up
+        run: yes Y | vagrant up --no-tty
 
       - name: Run vagrant up
-        run: vagrant up
+        run: vagrant up --no-tty
 
       - name: Build proton
         run: build_name=some_custom_build_name make redist
