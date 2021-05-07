@@ -24,12 +24,14 @@ jobs:
 
       - name: Show Vagrant version
         run: vagrant --version
+      - name: Install libvirt
+        run: vagrant plugin install vagrant-libvirt
 
       - name: Run vagrant up
-        run: yes Y | vagrant up
+        run: yes Y | vagrant up --provider=libvirt
 
       - name: Run vagrant up
-        run: vagrant up
+        run: vagrant up --provider=libvirt
 
       - name: Build proton
         run: build_name=some_custom_build_name make redist

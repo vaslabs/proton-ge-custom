@@ -42,7 +42,7 @@ Vagrant.configure(2) do |config|
   #libvirt doesn't have a decent synced folder, so we have to use vagrant-sshfs.
   #This is not needed for virtualbox, but I couldn't find a way to use a
   #different synced folder type per provider, so we always use it.
-  config.vagrant.plugins = "vagrant-sshfs"
+  # config.vagrant.plugins = "vagrant-sshfs"
 
   config.vm.provider "virtualbox" do |v|
     v.cpus = [cpus, 32].min     # virtualbox limit is 32 cpus
