@@ -61,7 +61,7 @@ Vagrant.configure(2) do |config|
 
     debian10.vm.box = "generic/debian10"
 
-    debian10.vm.synced_folder "./vagrant_share/", "/vagrant/", create: true, type: "sshfs", sshfs_opts_append: "-o cache=no"
+    debian10.vm.synced_folder "./vagrant_share/", "/vagrant/", create: true
     debian10.vm.synced_folder ".", "/home/vagrant/proton", id: "proton", type: "rsync", rsync__exclude: ["vagrant_share"]
 
     debian10.vm.provision "shell", privileged: "true", inline: <<-SHELL
