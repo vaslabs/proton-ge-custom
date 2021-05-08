@@ -18,41 +18,47 @@ jobs:
       # available
       - name: Test sha512sum availability
         run: echo "hello" | sha512sum
+      # Extract the tag name without refs/tags
+      - name: Set env
+        run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF#refs/*/})
+      # - uses: actions/checkout@v2
+      #   with:
+      #     submodules: recursive
+      # - name: Cache Vagrant boxes
+      #   uses: actions/cache@v2
+      #   with:
+      #     path: ~/.vagrant.d/boxes
+      #     key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
+      #     restore-keys: |
+      #       ${{ runner.os }}-vagrant-
+      # - name: Show Vagrant version
+      #   run: vagrant --version
       
-      - uses: actions/checkout@v2
-        with:
-          submodules: recursive
-      - name: Cache Vagrant boxes
-        uses: actions/cache@v2
-        with:
-          path: ~/.vagrant.d/boxes
-          key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
-          restore-keys: |
-            ${{ runner.os }}-vagrant-
-      - name: Show Vagrant version
-        run: vagrant --version
-      
-        # without this the share directory mounting fails
-        # probably because the guest additions are old
-      - name: Setup vbox additions
-        run: vagrant plugin install vagrant-vbguest
+      #   # without this the share directory mounting fails
+      #   # probably because the guest additions are old
+      # - name: Setup vbox additions
+      #   run: vagrant plugin install vagrant-vbguest
 
-      - name: apply patches
-        run: ./patches/protonprep.sh
+      # - name: apply patches
+      #   run: ./patches/protonprep.sh
 
-      - name: Run vagrant up
-        run: vagrant up --no-tty
-      - name: Run vagrant up
-        run: vagrant up --no-tty
+      # - name: Run vagrant up
+      #   run: vagrant up --no-tty
+      # - name: Run vagrant up
+      #   run: vagrant up --no-tty
 
-      # Build name following convention: Proton-GE-<tag>
-      - name: Build proton
-        run: build_name=Proton-GE-${{ github.ref }} make redist
+      # # Build name following convention: Proton-GE-<tag>
+      # - name: Build proton
+      #   run: build_name=Proton-GE-${{ github.ref }} make redist
+
+      - name: Mocked build fast
+        run: mkdir vagrant_share && echo "hello" >SAMPLE_TEXT-${env.RELEASE_VERSION}.txt
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GH_PAT }}
           file: vagrant_share/*
+          file_glob: true
           tag: ${{ github.ref }}
           overwrite: false
