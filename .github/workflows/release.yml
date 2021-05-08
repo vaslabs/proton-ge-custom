@@ -9,7 +9,8 @@ jobs:
     # avoids hanging the system with vagrant checking for updates
     env:
       VAGRANT_CHECKPOINT_DISABLE: yes
-
+      # Extract the tag name without refs/tags
+      RELEASE_VERSION: ${GITHUB_REF#refs/*/}
     steps:
       # - name: Install dependencies
       #   run: brew install coreutils
@@ -18,9 +19,6 @@ jobs:
       # # available
       # - name: Test sha512sum availability
       #   run: echo "hello" | sha512sum
-      # Extract the tag name without refs/tags
-      - name: Set env
-        run: echo ::set-env name=RELEASE_VERSION::$(echo ${GITHUB_REF#refs/*/})
       # - uses: actions/checkout@v2
       #   with:
       #     submodules: recursive
