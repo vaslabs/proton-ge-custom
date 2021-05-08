@@ -54,7 +54,7 @@ jobs:
 
 
       - name: Mocked build fast
-        run: mkdir vagrant_share && echo "hello" >SAMPLE_TEXT-${{ env.RELEASE_VERSION }}.txt && echo "hello" >SAMPLE_TEXT.sum
+        run: mkdir vagrant_share && echo "hello" >vagrant_share/SAMPLE_TEXT-${{ env.RELEASE_VERSION }}.txt && echo "hello" >vagrant_share/SAMPLE_TEXT.sum
 
       - name: Upload binaries to release
         uses: svenstaro/upload-release-action@v2
