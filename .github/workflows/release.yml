@@ -19,7 +19,7 @@ jobs:
       - name: Test sha512sum availability
         run: echo "hello" | sha512sum
       
-        - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
         with:
           submodules: recursive
       - name: Cache Vagrant boxes
