@@ -390,4 +390,3 @@ index 9f37398cd7e..38eaf5e3cbc 100644
  };
  
  BOOL wined3d_filter_messages(HWND window, BOOL filter) DECLSPEC_HIDDEN;
-
