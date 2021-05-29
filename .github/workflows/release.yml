@@ -29,13 +29,8 @@ jobs:
       - uses: actions/checkout@v2
         with:
           submodules: recursive
-      - name: Cache Vagrant boxes
-        uses: actions/cache@v2
-        with:
-          path: ~/.vagrant.d/boxes
-          key: ${{ runner.os }}-vagrant-${{ hashFiles('Vagrantfile') }}
-          restore-keys: |
-            ${{ runner.os }}-vagrant-
+          ref: ${{ github.event.pull_request.head.sha }}
+
       - name: Show Vagrant version
         run: vagrant --version
       
