@@ -34,7 +34,6 @@ jobs:
         run: |
           set -o xtrace
           git submodule update --init --recursive
-          git submodule update --remote --merge --recursive
           
       - name: Show Vagrant version
         run: vagrant --version
