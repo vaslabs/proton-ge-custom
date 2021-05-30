@@ -29,7 +29,9 @@ jobs:
       - uses: actions/checkout@master
         with:
           submodules: false
-      - run: |
+
+      - name: Update submodules
+        run: |
         set -o xtrace
         git submodule update --init --recursive
         git submodule update --remote --merge --recursive
